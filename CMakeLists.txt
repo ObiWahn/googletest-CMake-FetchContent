@@ -4,13 +4,13 @@ project(googletest-FetchContent VERSION 0.0.1 LANGUAGES CXX)
 
 include(FetchContent)
 FetchContent_Declare(
-    GTest
+    foobar
     GIT_REPOSITORY https://github.com/google/googletest.git
     GIT_TAG        v1.14.0
     GIT_PROGRESS   TRUE
 )
 
-FetchContent_MakeAvailable(GTest)
+FetchContent_MakeAvailable(foobar)
 
 add_executable(testapp testapp.cpp)
 target_include_directories(testapp SYSTEM PRIVATE ${gtest_SOURCE_DIR}/include)
