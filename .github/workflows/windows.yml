@@ -2,12 +2,12 @@ name: Windows
 
 on:
   push:
-    branches: [ master, github ]
+    branches: [ master, github, explore ]
     paths-ignore:
       - 'README.rst'
       - 'doc/**'
   pull_request:
-    branches: [ master, github ]
+    branches: [ master, github, explore ]
     paths-ignore:
       - 'README.rst'
       - 'doc/**'
@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build_type: [Debug, Release]
+        build_type: [Debug]
 
     runs-on: windows-latest
 
@@ -29,29 +29,6 @@ jobs:
     - shell: bash
       working-directory: build/
       run: cmake $GITHUB_WORKSPACE -G "Visual Studio 17 2022"
-
-    - working-directory: build/
-      run: cmake --build . --config ${{ matrix.build_type }}
-
-    - working-directory: build/
-      run: ctest -C ${{ matrix.build_type }} --output-on-failure
-
-  vs2022-clang:
-    strategy:
-      fail-fast: false
-      matrix:
-        build_type: [Debug, Release]
-
-    runs-on: windows-latest
-
-    steps:
-    - uses: actions/checkout@v3
-
-    - run: cmake -E make_directory build
-
-    - shell: bash
-      working-directory: build/
-      run: cmake $GITHUB_WORKSPACE -G "Visual Studio 17 2022" -T ClangCL
 
     - working-directory: build/
       run: cmake --build . --config ${{ matrix.build_type }}
